@@ -1,0 +1,23 @@
+<p translate>Main.Intro</p>
+<div *ngIf="mappingProfiles && mappingProfiles.length > 0" class="operation-options">
+  <app-select-set #selectSet
+    (setSelected)=onSetSelected($event)>
+  </app-select-set>
+
+  <mat-form-field class="select-mapping-profile">
+    <mat-select placeholder="{{'Main.SelectMapapingProfile' | translate}}" 
+      (selectionChange)="onMappingProfileSelected($event)" [formControl]="mappingProfile" [compareWith]="compareMappingProfiles">
+      <mat-option *ngFor="let profile of mappingProfiles" [value]="profile">
+        {{ profile.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-flat-button (click)="load()" [disabled]="!isValid" color="primary">{{'Main.CreateActivities' | translate}}</button>
+</div>
+
+<div *ngIf="!mappingProfiles || mappingProfiles.length == 0" class="operation-options">
+  <div class="no-data-message">
+    <h2 translate>Main.NoMappingProfiles</h2>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="loading-shade" *ngIf="status.isLoading">
+    <mat-progress-spinner 
+        mode="indeterminate"
+        diameter="50"
+        [value]="status.percentComplete"
+        >
+    </mat-progress-spinner>
+    <div class="loading-percent" *ngIf="status.percentComplete>=0">{{status.percentComplete}}%</div>
+</div>
+<div class="cloudapp-actions">
+    <button mat-flat-button color="secondary" class="left" [routerLink]="['']"><mat-icon>arrow_back</mat-icon> {{ 'Result.Back' | translate}}</button>
+</div>
+<ng-container *ngIf="dataSource.data.length > 0; else noData">
+  <mat-table [dataSource]="dataSource" class="full-width-table">
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef translate>Result.Course</mat-header-cell>
+      <mat-cell class="align-top" *matCellDef="let row">
+        <div>{{row.id}}</div>
+      </mat-cell>
+    </ng-container>
+  
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef translate>Result.Title</mat-header-cell>
+      <mat-cell class="align-top" *matCellDef="let row">
+        <div>{{row.title}}</div>
+      </mat-cell>
+    </ng-container>
+  
+    <!-- Activities Column -->
+    <ng-container matColumnDef="activities">
+        <mat-header-cell *matHeaderCellDef translate>Result.Status</mat-header-cell>
+        <mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length">
+          <table class="activity-table">
+            <ng-container *ngFor="let activity of row.activities">
+              <tr>
+                <td>
+                  <span *ngIf="activity.status; else failed" class="success" translate>Result.ActivityCreated</span>
+                  <ng-template #failed><span class="error" translate>Result.ActivityFailed</span> {{ activity.msg }}</ng-template>
+                </td>
+              </tr>
+            </ng-container>
+          </table>
+        </mat-cell>
+      </ng-container>
+  
+    <!-- Header Row -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <!-- Data Row -->
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [length]="totalRecords" [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" (page)="page()"></mat-paginator>
+</ng-container>
+
+<ng-template #noData>
+  <div class="no-data-message">
+    <h2 translate>Result.NoMappingMatchesToCreate</h2>
+  </div>
+</ng-template>

@@ -1,0 +1,83 @@
+{
+	"OK": "OK",
+  	"Cancel": "Cancel",
+	"Main": {
+		"CreateActivities": "Create Activities",
+		"DisplayedIds": "Create activities from {{length}} records on this page",
+		"DisplayedRecords": "Displayed Records",
+		"SelectRecords": "Select Records",
+		"Intro": "To begin creating activities, select a set of researchers and a mapping profile.",
+		"SelectSet": "Set",
+		"SelectMapapingProfile": "Select a mapping profile",
+		"NoMappingProfiles": "No mapping profiles found, please create at least one to start."
+	},
+	"Result": {
+		"Course": "Course ID",
+		"Title": "Title",
+		"Activity": "Title",
+		"ActivityCreated": "Success!",
+		"ActivityFailed": "Failed!",
+		"Back": "Back",
+		"ActivitiesList": "Activities List",
+		"NoMappingMatchesToCreate": "No courses match the chosen mapping; therefore, no activities were created!",
+		"Status": "Status"
+	},
+	"SetSelect": {
+		"SelectSet": "Select a set"
+	},
+	"Settings": {
+		"Title": "Settings",
+		"Back": "Back",
+		"General": "General",
+		"VisibilityPublicProfile": "Activities visible in public profile",
+		"VisibilityResearcherProfile": "Activities visible in researcher profile",
+		"Language": "Activities Language",
+		"DataMapping": "Data Mapping",
+		"DataMappingToolTip": "(all applicable mappings will be used for each asset selected)",
+		"Fields": "Fields",
+		"Save": "Save",
+		"Reset": "Reset",
+		"Discard": "Discard unsaved changes?",
+		"Saved": "Settings successfully saved",
+		"RestoreDefault": "Restore default",
+		"RestoreConfirm": "Restore default settings and lose all local configuration?",
+		"Add": "Add New Mapping",
+		"AddMapping": "Add New Mapping",
+		"CourseSection": "Course Mapping Criteria",
+		"ActivitySection": "Activity Defaults",
+		"Rename": "Rename",
+		"Edit": "Edit",
+		"Delete": "Delete",
+		"Name": "Name",
+		"Exists": "\"{name}\" already exists.",
+		"ConfirmDelete": "Are you sure you want to delete \"{name}\"",
+		"MappingDef": {
+			"Name": "Name",
+			"EsploroOrgUnit": "Esploro Organization Unit",
+			"CreatorRole": "Creator Role",
+			"ActivityCategory": "Activity Category",
+			"ActivityType": "Activity Type",
+			"ActivityResearcherRole": "Activity Researcher Role",
+			"Fields": "Fields",
+			"FieldHeader": "Field #{index}",
+			"Tag": "Tag",
+			"Subfield": "Subfield",
+			"Indexes": "Indexes",
+			"Subfield2": "Subfield 2",
+			"Hints": "Hint subfields",
+			"AddHint": "Add...",
+			"AddSubfield2": "Add...",
+			"AddField": "Add field",
+			"RemoveField": "Remove field?",
+			"CourseStatus": "Course Status",
+			"CourseTerm": "Course Term",
+			"DateRange": "Date Range",
+			"Errors": {
+				"Name": "Name is required",
+				"Tag": "Invalid field",
+				"Subfield": "Invalid subfield"
+			}
+
+		}
+	}
+}

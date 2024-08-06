@@ -1,0 +1,15 @@
+{
+   "id": "esploro-activities-from-alma-courses",
+   "title": "Esploro Activities from Alma Courses",
+   "subtitle": "Create Esploro Activities from your Alma Courses",
+   "author": "Exlibris",
+   "description": "This app can be used to create activities from Alma courses. This is a Beta version",
+   "pages": {
+      "settings": "/#/settings",
+      "help": "https://github.com/MahranAbb/Create-Activities-Cloud-App/wiki"
+   },
+   "icon": {
+      "type": "url",
+      "value": "/assets/coursesToActivitiesLoader-logo.png"
+   }
+}

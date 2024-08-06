@@ -1,0 +1,59 @@
+.full-width-table {
+    width: 100%;
+  }
+  
+  .result-table-container {
+    margin-bottom: 30px;
+    //display: flex;
+  }
+  
+  .loading-shade {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .align-top {
+    vertical-align: top;
+  }
+  
+  .result-options button {
+    margin-right: 8px;
+    height: 45px;
+  }
+  
+  div.result-options {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  div.result-action-buttons {
+    margin-left: auto;
+  }
+  
+  app-loader-result {
+    width: 100%;
+  }
+
+  .success {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .error {
+    color: red;
+    font-weight: bold;
+  }
+  
+  @media(min-width: 600px) {
+    .mat-column-id {
+      flex: 0 0 150px;
+    }
+  }

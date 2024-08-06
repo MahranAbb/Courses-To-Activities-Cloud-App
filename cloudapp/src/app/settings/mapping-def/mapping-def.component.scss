@@ -1,0 +1,50 @@
+mat-form-field.full-width {
+    width: 100%;
+  }
+  
+  mat-form-field.full-width:last-of-type {
+    margin-bottom: 25px;
+  }
+  
+  mat-card {
+    margin-bottom: 20px;
+  }
+  
+  .url-origin {
+    display: block;
+    margin-bottom: 5px;
+    color: darkgrey;
+  }
+  .field-input {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    column-gap: 1em;
+  }
+  
+  .field-large {
+    grid-column: span 2;
+  }
+  
+  div.field-header {
+    display: flex;
+    margin: 5px 0;
+    font-size: x-small;
+  }
+  
+  div.field-header mat-icon {
+    margin-left: auto;
+    font-size: small;
+    cursor: pointer;
+  }
+  
+  .mat-radio-button {
+    margin-left: 16px;
+  }
+  
+  .radio-container {
+    margin-bottom: 10px;
+  }
+
+  .bold {
+    font-weight: bold;
+  }

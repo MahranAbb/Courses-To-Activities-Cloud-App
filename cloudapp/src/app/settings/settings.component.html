@@ -1,0 +1,45 @@
+<div class="loading-shade" *ngIf="saving">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+  <form [formGroup]="form" *ngIf="form">
+    <div class="cloudapp-actions">
+      <button mat-flat-button color="secondary" [routerLink]="['/']">
+        <mat-icon>arrow_back</mat-icon>
+        {{'Settings.Back' | translate}}
+      </button>
+      <button mat-flat-button color="secondary" (click)="restore()">{{ 'Settings.RestoreDefault' | translate}}</button>
+      <button mat-flat-button color="secondary" type="button" (click)="reset()" [disabled]="!form.dirty">{{ 'Settings.Reset' | translate }}</button> 
+      <button mat-flat-button color="primary" type="button" (click)="save()" [disabled]="!form.dirty">{{ 'Settings.Save' | translate }}</button>
+    </div>
+    <h1 translate>Settings.Title</h1>
+  
+    <h2 translate>Settings.General</h2>
+    <section class="settings-section">
+      <mat-checkbox labelPosition="after" formControlName="activitiesVisibilityPublicProfile">{{'Settings.VisibilityPublicProfile' | translate}}</mat-checkbox>
+    </section>
+    <section class="settings-section">
+      <mat-checkbox labelPosition="after" formControlName="activitiesVisibilityResearcherProfile">{{'Settings.VisibilityResearcherProfile' | translate}}</mat-checkbox>
+    </section>
+  
+    <mat-form-field class="full-width">
+      <mat-label translate>Settings.Language</mat-label>  
+      <mat-select formControlName="activitiesLanguage">
+        <mat-option *ngFor="let lan of languagesList" [value]="lan.id">{{lan.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <h2 translate>Settings.DataMapping</h2>
+    <mat-accordion *ngIf="esploroActivityTypes && activityRoles && processingUnitToOrgUnitMapping && courseTerms">
+      <app-settings-mapping-def 
+        *ngFor="let service of activityMapping.controls | keyvalue" [form]="service.value" 
+        [esploroActivityTypes]="esploroActivityTypes"
+        [esploroActivityRolesMapping]="esploroActivityRolesMapping" [activityRoles]="activityRoles" 
+        [processingUnitToOrgUnitMapping]="processingUnitToOrgUnitMapping" [courseTerms]="courseTerms" 
+        (onDelete)="deleteService(service.key)"
+      >
+      </app-settings-mapping-def>
+    </mat-accordion>
+    <div>
+      <button mat-flat-button color="secondary" (click)="addService()"><mat-icon>add_circle</mat-icon>{{'Settings.AddMapping' | translate}}</button>
+    </div>
+  </form>
