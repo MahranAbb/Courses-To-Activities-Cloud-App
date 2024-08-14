@@ -22,7 +22,6 @@ export const activityMappingFormGroup = (value: ActivityMappingDef) => {
     activityType: new FormControl(value.activityType),
     activityResearcherRole: new FormControl(value.activityResearcherRole),
     esploroOrgUnit: new FormControl(value.esploroOrgUnit),
-    courseTerm: new FormControl(value.courseTerm),
-    courseStatus: new FormControl(value.courseStatus)
+    courseTerm: new FormControl(value.courseTerm)
   })
 }

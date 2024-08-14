@@ -159,6 +159,13 @@ export class SettingsComponent implements OnInit {
   get keys() {
     return Object.keys(this.activityMapping.value) 
   }
+
+  get isValidToAddMappings() {
+    return (
+      this.processingUnitToOrgUnitMapping!=null  &&
+      this.processingUnitToOrgUnitMapping.length > 0
+    );
+  }
 }
 
 

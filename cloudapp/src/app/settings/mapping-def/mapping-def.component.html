@@ -22,12 +22,6 @@
       </mat-select>
     </mat-form-field> 
     <mat-form-field class="full-width">
-      <mat-label translate>Settings.MappingDef.CourseStatus</mat-label>  
-      <mat-select [formControl]="form.controls.courseStatus">
-        <mat-option *ngFor="let status of courseStatus" [value]="status.id">{{status.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="full-width">
       <mat-label translate>Settings.MappingDef.CourseTerm</mat-label>  
       <mat-select [formControl]="form.controls.courseTerm" (selectionChange)="onCourseTermSelected($event)" [compareWith]="compareCourseTerm">
         <mat-option *ngFor="let term of courseTerms" [value]="term.code">{{term.description}}</mat-option>

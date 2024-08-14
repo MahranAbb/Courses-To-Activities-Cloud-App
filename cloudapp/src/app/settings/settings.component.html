@@ -40,6 +40,12 @@
       </app-settings-mapping-def>
     </mat-accordion>
     <div>
-      <button mat-flat-button color="secondary" (click)="addService()"><mat-icon>add_circle</mat-icon>{{'Settings.AddMapping' | translate}}</button>
+      <button mat-flat-button color="secondary" [disabled]="!isValidToAddMappings" (click)="addService()"><mat-icon>add_circle</mat-icon>{{'Settings.AddMapping' | translate}}</button>
+    </div>
+
+    <div *ngIf="!isValidToAddMappings" class="operation-options">
+      <div class="no-data-message">
+        <h2 translate>Settings.NoUnitsMapping</h2>
+      </div>
     </div>
   </form>

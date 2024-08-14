@@ -22,6 +22,7 @@ import { set } from "lodash";
 })
 export class LoaderResultComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'activities'];
+  offset: number;
   setId: string;
   researchersIds: string[];  
   coursesList: CourseData;    
@@ -44,6 +45,7 @@ export class LoaderResultComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    this.offset = this.route.snapshot.params['offset'];
     this.setId = this.route.snapshot.params['setId'];
     if (this.route.snapshot.params['mmsIds'])
       this.researchersIds = this.route.snapshot.params['mmsIds'].split(','); 
@@ -88,7 +90,7 @@ export class LoaderResultComponent implements OnInit {
         let getAllCourses$: Observable<CourseData>;
 
         if (this.setId != null) {
-          getAllCourses$ = this.getAllCourses().pipe(
+          getAllCourses$ = this.getAllCourses(this.offset * 2).pipe(
                 tap(courses => {
                     this.coursesList = courses;
                     console.log('All Courses Data: ', this.coursesList);
@@ -187,29 +189,32 @@ export class LoaderResultComponent implements OnInit {
     );
   }
 
-  getAllCourses(pageSize: number = 100): Observable<CourseData> {
-    return this.courseService.getCourses(0, pageSize).pipe(
+  getAllCourses(startPage: number = 0, pageSize: number = 100, maxCourses: number = 200): Observable<CourseData> {
+    let totalCoursesFetched = 0;
+    let accumulatedCourses: any[] = [];
+  
+    return this.courseService.getCourses(startPage * pageSize, pageSize).pipe(
       expand((result: CourseData) => {
         const currentPageSize = result.course.length;
-        const totalRecordCount = result.total_record_count;
-        const totalPages = Math.ceil(totalRecordCount / pageSize);
-        const nextPageNumber = currentPageSize / pageSize + 1;
-
-        if (totalPages > nextPageNumber) {
-          return this.courseService.getCourses(nextPageNumber, pageSize);
-        } else {
-          return EMPTY; // Stop recursion
+        totalCoursesFetched += currentPageSize;
+        accumulatedCourses = [...accumulatedCourses, ...result.course];
+  
+        if (totalCoursesFetched < maxCourses) {
+          const nextPageOffset = Math.floor(totalCoursesFetched / pageSize) * pageSize + (startPage * pageSize);
+          if (totalCoursesFetched < result.total_record_count) {
+            return this.courseService.getCourses(nextPageOffset, pageSize);
+          }
         }
+  
+        return EMPTY; // Stop recursion if maxCourses is reached or no more data is available
       }),
       toArray(),
-      // Map over the array to merge all `CourseData` objects into a single one
-      map((results: CourseData[]) => {
-        // Assuming you want to merge all pages into one CourseData object
-        return results.reduce((acc, result) => {
-          acc.course = [...acc.course, ...result.course];
-          acc.total_record_count = result.total_record_count;
-          return acc;
-        }, { ...results[0], course: [] } as CourseData);
+      map(() => {
+        // Return the aggregated CourseData
+        return {
+          course: accumulatedCourses,
+          total_record_count: Math.min(totalCoursesFetched, maxCourses)
+        };
       })
     );
   }
@@ -235,7 +240,7 @@ export class LoaderResultComponent implements OnInit {
     if(matchInstructorFound) {
       const matchedOrgUnit = this.findOrgUnitByProcessingUnitValue(course.processing_department.value);
       if(matchedOrgUnit != undefined && matchedOrgUnit.column1 == mappingDef.esploroOrgUnit ) {
-        if(course.status == mappingDef.courseStatus || mappingDef.courseStatus.toLocaleLowerCase() == "all") {
+        if(course.status.toLocaleLowerCase() == "active") {
           if (course.term.find(t => t.value == mappingDef.courseTerm)) {
             return true;
           }

@@ -3,9 +3,8 @@ export interface ActivityMappingDef {
     esploroOrgUnit?: string,
     activityCategory?: string,
     activityType?: string,
-    activityResearcherRole?: string
-    courseTerm?: string,
-    courseStatus?: string
+    activityResearcherRole?: string,
+    courseTerm?: string
 }
 
 export interface ActivityMappings {

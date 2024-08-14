@@ -9,7 +9,8 @@
 		"Intro": "To begin creating activities, select a set of researchers and a mapping profile.",
 		"SelectSet": "Set",
 		"SelectMapapingProfile": "Select a mapping profile",
-		"NoMappingProfiles": "No mapping profiles found, please create at least one to start."
+		"NoMappingProfiles": "No mapping profiles found, please create at least one to start.",
+		"Offset": "Offset"
 	},
 	"Result": {
 		"Course": "Course ID",
@@ -51,6 +52,7 @@
 		"Name": "Name",
 		"Exists": "\"{name}\" already exists.",
 		"ConfirmDelete": "Are you sure you want to delete \"{name}\"",
+		"NoUnitsMapping": "No Processing Units to Organization Units mapping has been found!",
 		"MappingDef": {
 			"Name": "Name",
 			"EsploroOrgUnit": "Esploro Organization Unit",

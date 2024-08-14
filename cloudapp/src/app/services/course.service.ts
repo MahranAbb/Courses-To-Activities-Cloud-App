@@ -15,10 +15,14 @@ export class CourseService {
   getCourses (pageNumber = 0, pageSize = 100): Observable<CourseData> {
     const params = { 
         limit: pageSize.toString(),
-        offset: (pageSize*pageNumber).toString() 
-      }
+        offset: (pageNumber).toString(),
+        status: "ACTIVE",
+        order_by: "start_date",
+        direction: "DESC" 
+      }   
     return this.restService.call( {
-      url: '/almaws/v1/courses'
+      url: '/almaws/v1/courses',
+      queryParams: params
     }).pipe(map( results => results as CourseData ), catchError(err=>of({total_record_count: 0, course: []})))
   }
 }

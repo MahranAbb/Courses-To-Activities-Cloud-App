@@ -4,8 +4,9 @@
     (setSelected)=onSetSelected($event)>
   </app-select-set>
 
-  <mat-form-field class="select-mapping-profile">
-    <mat-select placeholder="{{'Main.SelectMapapingProfile' | translate}}" 
+  <mat-form-field class="full-width">
+    <mat-label translate>Main.SelectMapapingProfile</mat-label>
+    <mat-select 
       (selectionChange)="onMappingProfileSelected($event)" [formControl]="mappingProfile" [compareWith]="compareMappingProfiles">
       <mat-option *ngFor="let profile of mappingProfiles" [value]="profile">
         {{ profile.name }}
@@ -13,7 +14,17 @@
     </mat-select>
   </mat-form-field>
 
-  <button mat-flat-button (click)="load()" [disabled]="!isValid" color="primary">{{'Main.CreateActivities' | translate}}</button>
+  <mat-form-field class="full-width">
+    <mat-label translate>Main.Offset</mat-label>  
+    <mat-select 
+      (selectionChange)="onCourseOffsetSelected($event)" formControlName="courseOffset" [compareWith]="compareCourseOffsets">
+      <mat-option *ngFor="let offset of offsetList" [value]="offset.id">
+        {{offset.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-flat-button (click)="load()" [disabled]="!isValid" color="primary" class="full-width">{{'Main.CreateActivities' | translate}}</button>
 </div>
 
 <div *ngIf="!mappingProfiles || mappingProfiles.length == 0" class="operation-options">
