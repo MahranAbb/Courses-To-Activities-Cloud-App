@@ -14,8 +14,13 @@ import { defaultActivityMappings } from '../models/activity-mapping';
 export class ConfigService {
   private _settings: Settings;
   anyRow: ConfTable.Code = {
-    code: "Any",
-    description: "Any"
+    code: "all",
+    description: "All"
+  };
+  mappingAnyRow: ConfTable.Mapping = {
+    column0: "all",
+    column1: "All",
+    enabled: true
   };
 
   constructor( 
@@ -52,6 +57,11 @@ export class ConfigService {
 
   addAnyRow(rows: ConfTable.Code[]) {
     rows.push(this.anyRow);
+    return rows;
+  }
+
+  addAnyRowForMappingTable(rows: ConfTable.Mapping[]) {
+    rows.push(this.mappingAnyRow);
     return rows;
   }
 

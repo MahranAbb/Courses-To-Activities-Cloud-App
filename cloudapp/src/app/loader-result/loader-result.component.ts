@@ -239,9 +239,9 @@ export class LoaderResultComponent implements OnInit {
     const matchInstructorFound = this.findMatchingInstructors(course, researcherIds);
     if(matchInstructorFound) {
       const matchedOrgUnit = this.findOrgUnitByProcessingUnitValue(course.processing_department.value);
-      if(matchedOrgUnit != undefined && matchedOrgUnit.column1 == mappingDef.esploroOrgUnit ) {
+      if(mappingDef.esploroOrgUnit.toLocaleLowerCase() == "all" || (matchedOrgUnit != undefined && matchedOrgUnit.column1 == mappingDef.esploroOrgUnit)) {
         if(course.status.toLocaleLowerCase() == "active") {
-          if (course.term.find(t => t.value == mappingDef.courseTerm)) {
+          if (mappingDef.courseTerm.toLocaleLowerCase() == "all" || course.term.find(t => t.value == mappingDef.courseTerm)) {
             return true;
           }
         }

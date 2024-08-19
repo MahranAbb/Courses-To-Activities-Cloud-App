@@ -24,8 +24,8 @@ export class SettingsComponent implements OnInit {
   esploroActivityTypes: ConfTable.Code[];
   esploroActivityRolesMapping: ConfTable.Mapping[];  
   activityRoles: ConfTable.Code[];
-  courseTerms: ConfTable.Code[];
-  processingUnitToOrgUnitMapping: ConfTable.Mapping[]; 
+  courseTerms: ConfTable.Code[] = [];
+  processingUnitToOrgUnitMapping: ConfTable.Mapping[] = []; 
   languagesList: { id: string, name: string }[] = [{id: "und", name : "Undefined"},
   {id: "eng", name : "English"},{id: "ger", name : "German"},{id: "dan", name : "Danish"},
   {id: "ita", name : "Italian"},{id: "fre", name : "French"},{id: "ara", name : "Arabic"}];
@@ -64,9 +64,12 @@ export class SettingsComponent implements OnInit {
     ]) => {         
       this.esploroActivityCategoriesToTypesMapping = activityCategoriesRows.row;
       this.esploroActivityRolesMapping = activityRolesMappingRows.row;  
-      this.processingUnitToOrgUnitMapping = processingUnitToOrgUnitMapping.row;
-      this.courseTerms = courseTermsRows.row;
 
+      this.configService.addAnyRowForMappingTable(this.processingUnitToOrgUnitMapping);
+      this.processingUnitToOrgUnitMapping.push(...processingUnitToOrgUnitMapping.row);
+
+      this.configService.addAnyRow(this.courseTerms);
+      this.courseTerms.push(...courseTermsRows.row);
       
       let filteredRowsTypes = activityCategoriesRows.row.filter(mappingRow => mappingRow.column1.toLowerCase() == "activity.teaching");
       this.esploroActivityTypes = filteredRowsTypes.map(mappingRow => {
