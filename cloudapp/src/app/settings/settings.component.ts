@@ -46,7 +46,7 @@ export class SettingsComponent implements OnInit {
       this.configService.getMappingTable('ResearcherActivityRolesMapping'),
       this.configService.getCodeTable('ResearcherActivityRoles'),
       this.configService.getMappingTable('PlatformProcessingUnitToOrganizationalUnit'),
-      this.configService.getAlmaCodeTable('CourseTerms')
+      this.configService.getCodeTable('ResearchTeachingTerms')
     ]).subscribe(([
       activityCategoriesRows, 
       activityTypesRows, 

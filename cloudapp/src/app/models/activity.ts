@@ -35,6 +35,11 @@ export interface Activity {
         display_in_profile: boolean;
         creator: boolean;
     }[];
+    member_organization?: {
+        org_code: string;
+        order: number;
+        internal_external: string;
+    }[];
     related_assets?: {
         target_mms_id: string;
         visible: boolean;

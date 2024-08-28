@@ -90,7 +90,7 @@ export class LoaderResultComponent implements OnInit {
         let getAllCourses$: Observable<CourseData>;
 
         if (this.setId != null) {
-          getAllCourses$ = this.getAllCourses(this.offset * 2).pipe(
+          getAllCourses$ = this.getAllCourses(this.offset * 5).pipe(
                 tap(courses => {
                     this.coursesList = courses;
                     console.log('All Courses Data: ', this.coursesList);
@@ -189,7 +189,7 @@ export class LoaderResultComponent implements OnInit {
     );
   }
 
-  getAllCourses(startPage: number = 0, pageSize: number = 100, maxCourses: number = 200): Observable<CourseData> {
+  getAllCourses(startPage: number = 0, pageSize: number = 100, maxCourses: number = 500): Observable<CourseData> {
     let totalCoursesFetched = 0;
     let accumulatedCourses: any[] = [];
   
@@ -238,10 +238,10 @@ export class LoaderResultComponent implements OnInit {
   courseMatchesMapping(course: Course, mappingDef: ActivityMappingDef, researcherIds: String[]): boolean {
     const matchInstructorFound = this.findMatchingInstructors(course, researcherIds);
     if(matchInstructorFound) {
-      const matchedOrgUnit = this.findOrgUnitByProcessingUnitValue(course.processing_department.value);
-      if(mappingDef.esploroOrgUnit.toLocaleLowerCase() == "all" || (matchedOrgUnit != undefined && matchedOrgUnit.column1 == mappingDef.esploroOrgUnit)) {
+      const matchedOrgUnit = this.findOrgUnitByAcademicUnitValue(course.academic_department.value);
+      if((mappingDef.esploroOrgUnit.toLocaleLowerCase() == "all" && matchedOrgUnit != undefined) || (matchedOrgUnit != undefined && matchedOrgUnit.column1 == mappingDef.esploroOrgUnit)) {
         if(course.status.toLocaleLowerCase() == "active") {
-          if (mappingDef.courseTerm.toLocaleLowerCase() == "all" || course.term.find(t => t.value == mappingDef.courseTerm)) {
+          if (mappingDef.courseTerm.toLocaleLowerCase() == "all" || course.term.find(t => t.value.toLocaleLowerCase() == mappingDef.courseTerm.toLocaleLowerCase().replace("term.", "").trim())) {
             return true;
           }
         }
@@ -251,7 +251,7 @@ export class LoaderResultComponent implements OnInit {
     return false; 
   }
 
-  findOrgUnitByProcessingUnitValue(searchValue: string): ConfTable.Mapping | undefined {
+  findOrgUnitByAcademicUnitValue(searchValue: string): ConfTable.Mapping | undefined {
     return this.processingUnitToOrgUnitMapping.find(mapping => 
       mapping.column0 == searchValue
     );
@@ -296,19 +296,26 @@ export class LoaderResultComponent implements OnInit {
         portal_visibility: activitiesVisibilityPublicProfile,
         repository_status: {value: "approved", desc: "Approved"},
         input_method: {value: "activity.imported", desc: "activity.imported"},
-        activity_course_term: {value: "term." + activityMapping.courseTerm.toLowerCase(), desc: activityMapping.courseTerm},
         activity_course_enrollment: course.participants,
         activity_course_id: course.code,
         activity_course_name: course.name,
         activity_course_hours: course.weekly_hours
     };
 
+    if (activityMapping.courseTerm.toLowerCase() != "all") {
+      activity.activity_course_term = {value: activityMapping.courseTerm, desc: activityMapping.courseTerm};
+    }
+
+    if(activityMapping.esploroOrgUnit.toLocaleLowerCase() != "all") {
+      activity.member_organization = [{org_code: activityMapping.esploroOrgUnit, order: 0, internal_external: "INTERNAL"}];
+    }
+
     return activity;
   }
 
   convertDateFormat(dateString: string): string {
     // Check if the input dateString matches the expected format
-    const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+    const regex = /^(\d{4})-(\d{2})-(\d{2})Z$/;
     const match = dateString.match(regex);
   
     if (!match) {
@@ -316,7 +323,7 @@ export class LoaderResultComponent implements OnInit {
     }
   
     // Extract day, month, and year from the match
-    const [_, day, month, year] = match;
+    const [_, year, month, day] = match;
   
     // Convert to YYYYMMDD format
     return `${year}${month}${day}`;

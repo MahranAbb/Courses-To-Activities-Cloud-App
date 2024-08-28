@@ -35,10 +35,10 @@ export class MainComponent implements OnInit, OnDestroy {
   selectedOffset: String;
   selectedSet: Set;
   processingUnitsMapping: ConfTable.MappingTable;
-  offsetList: { id: string, name: string }[] = [{id: "0", name : "1-200"},
-  {id: "1", name : "201-400"},{id: "2", name : "401-600"},{id: "3", name : "601-800"},
-  {id: "4", name : "801-1000"},{id: "5", name : "1001-1200"},{id: "6", name : "1201-1400"},
-  {id: "7", name : "1401-1600"},{id: "8", name : "1601-1800"},{id: "9", name : "1801-2000"}];
+  offsetList: { id: string, name: string }[] = [{id: "0", name : "1-500"},
+  {id: "1", name : "501-1000"},{id: "2", name : "1001-1500"},{id: "3", name : "1501-2000"},
+  {id: "4", name : "2001-2500"},{id: "5", name : "2501-3000"},{id: "6", name : "3001-3500"},
+  {id: "7", name : "3501-4000"},{id: "8", name : "4001-4500"},{id: "9", name : "4501-5000"}];
   @ViewChild('selectSet', {static: false}) selectSetComponent: SelectSetComponent;
 
   entities$: Observable<Entity[]> = this.eventsService.entities$
